@@ -1,6 +1,6 @@
 <div class="bg-white dark:bg-gray-800 shadow-xs rounded-xl">
     <header class="px-5 py-4">
-        <h2 class="font-semibold text-gray-800 dark:text-gray-100">All Customers <span class="text-gray-400 dark:text-gray-500 font-medium">{{ $count }}</span></h2>
+        <h2 class="font-semibold text-gray-800 dark:text-gray-100">Semua Nasabah <span class="text-gray-400 dark:text-gray-500 font-medium">{{ $count }}</span></h2>
     </header>
 
     <div x-data="handleSelect">
@@ -11,91 +11,70 @@
                 <!-- Table header -->
                 <thead class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/20 border-t border-b border-gray-100 dark:border-gray-700/60">
                     <tr>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+                        {{-- <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                             <div class="flex items-center">
                                 <label class="inline-flex">
                                     <span class="sr-only">Select all</span>
                                     <input id="parent-checkbox" class="form-checkbox" type="checkbox" @click="toggleAll" />
                                 </label>
                             </div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                            <span class="sr-only">Favourite</span>
+                        </th> --}}
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-semibold text-left">No.</div>
+                            </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Nama</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Order</div>
+                            <div class="font-semibold text-center">Nomor Induk</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Email</div>
+                            <div class="font-semibold text-center">Kelas</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Location</div>
+                            <div class="font-semibold text-left">Status</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold">Orders</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Last order</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold text-left">Total spent</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <div class="font-semibold">Refunds</div>
-                        </th>
-                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                            <span class="sr-only">Menu</span>
+                            <div class="font-semibold text-center">Aksi</div>
                         </th>
                     </tr>
                 </thead>
                 <!-- Table body -->
                 <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-700/60">
-
+                    @php
+                        $i = 1;
+                    @endphp
                     <!-- Row -->
                     @foreach($customers as $customer)
                         <tr>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+                            {{-- <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <div class="flex items-center">
                                     <label class="inline-flex">
                                         <span class="sr-only">Select</span>
                                         <input class="table-item form-checkbox" type="checkbox" @click="uncheckParent" />
                                     </label>
                                 </div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                                <div class="flex items-center relative">
-                                    <button>
-                                        <svg class="shrink-0 fill-current @if($customer->fav){{ 'text-yellow-500' }}@else{{ 'text-gray-300 dark:text-gray-600' }}@endif" width="16" height="16" viewBox="0 0 16 16">
-                                            <path d="M8 0L6 5.934H0l4.89 3.954L2.968 16 8 12.223 13.032 16 11.11 9.888 16 5.934h-6L8 0z" />
-                                        </svg>
-                                    </button>
-                                </div>
+                            </td> --}}
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                <div class="font-medium">{{ $i++ }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="flex items-center">
-                                    <div class="w-10 h-10 shrink-0 mr-2 sm:mr-3">
-                                        <img class="rounded-full" src="{{ asset('images/' . $customer->image) }}" width="40" height="40" alt="{{ $customer->name }}" />
-                                    </div>
-                                    <div class="font-medium text-gray-800 dark:text-gray-100">{{ $customer->name }}</div>
-                                </div>
+                                <div class="text-left">{{ $customer->name }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-left">{{ $customer->email }}</div>
+                                <div class="text-center">{{ $customer->nomor_induk }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-left">{{ $customer->location }}</div>
+                                <div class="text-center">{{ $customer->room->nama_kelas }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-center">{{ $customer->orders }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-left font-medium text-sky-600">{{ $customer->last_order }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-left font-medium text-green-600">{{ $customer->spent }}</div>
-                            </td>
-                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="text-center">@if($customer->refunds > 0){{ $customer->refunds }}@else{{ '-' }}@endif</div>
+                                @if ($customer->status === 'Aktif')
+                                    <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-blue-500 text-white">{{ $customer->status }}</div>
+                                @elseif ($customer->status === 'Lulus')
+                                    <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-amber-500 text-white">{{ $customer->status }}</div>
+                                @else
+                                    <div class="inline-flex font-medium rounded-full text-center px-2.5 py-0.5 bg-red-500 text-white">{{ $customer->status }}</div>
+                                @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
                                 <button class="text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400 rounded-full">

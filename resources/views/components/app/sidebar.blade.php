@@ -116,41 +116,6 @@
                                         <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Invoices</span>
                                     </a>
                                 </li>
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('shop')){{ 'text-violet-500!' }}@endif" href="{{ route('shop') }}">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Shop</span>
-                                    </a>
-                                </li>
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('shop-2')){{ 'text-violet-500!' }}@endif" href="{{ route('shop-2') }}">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Shop 2</span>
-                                    </a>
-                                </li>
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('product')){{ 'text-violet-500!' }}@endif" href="{{ route('product') }}">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Single Product</span>
-                                    </a>
-                                </li>
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('cart')){{ 'text-violet-500!' }}@endif" href="{{ route('cart') }}">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Cart</span>
-                                    </a>
-                                </li>
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('cart-2')){{ 'text-violet-500!' }}@endif" href="{{ route('cart-2') }}">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Cart 2</span>
-                                    </a>
-                                </li>
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('cart-3')){{ 'text-violet-500!' }}@endif" href="{{ route('cart-3') }}">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Cart 3</span>
-                                    </a>
-                                </li>
-                                <li class="mb-1 last:mb-0">
-                                    <a class="block text-gray-500/90 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 transition truncate @if(Route::is('pay')){{ 'text-violet-500!' }}@endif" href="{{ route('pay') }}">
-                                        <span class="text-sm font-medium lg:opacity-0 lg:sidebar-expanded:opacity-100 2xl:opacity-100 duration-200">Pay</span>
-                                    </a>
-                                </li>
                             </ul>
                         </div>
                     </li>
