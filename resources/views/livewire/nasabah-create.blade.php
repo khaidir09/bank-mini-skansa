@@ -41,7 +41,7 @@
                     @enderror
                 </div>
 
-                <div x-data="{ showDetails: @entangle('kategori').live == 'Siswa' }">
+                <div x-data="{ showDetails: true }">
                     <label class="block text-sm font-medium mb-1" for="types_id">Kategori Nasabah <span class="text-rose-500">*</span></label>
                     <div class="flex flex-wrap items-center -m-3">
                         <div class="m-3">

@@ -11,13 +11,13 @@ class NasabahCreate extends Component
 {
     public $name;
     public $nomor_induk;
-    public $gender = 'L';
+    public $gender;
     public $birth_place;
     public $birthday;
     public $parent;
     public $room_id;
     public $status;
-    public $kategori;
+    public $kategori = 'Siswa';
     public $pin;
 
 
@@ -96,12 +96,12 @@ class NasabahCreate extends Component
     {
         $this->name = null;
         $this->nomor_induk = null;
-        $this->gender = 'L'; // Kembalikan ke default
+        $this->gender = null;
         $this->birth_place = null;
         $this->birthday = null;
         $this->parent = null;
         $this->status = null;
-        $this->kategori = 'Siswa'; // Kembalikan ke default
+        $this->kategori = 'Siswa';
         $this->room_id = null;
         $this->pin = null;
     }

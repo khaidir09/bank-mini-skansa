@@ -19,8 +19,18 @@ class CustomerController extends Controller
     public function show($id)
     {
         $customer = Customer::with('account', 'transactions')->findOrFail($id);
-        $transactions = Transaction::where('account_id', 1)->get();
-        return view('pages/nasabah/detail', compact('customer', 'transactions'));
+        $transactions = Transaction::where('account_id', $customer->account->id)->paginate(2);
+        $menabung = Transaction::where('account_id', $customer->account->id)
+            ->where('jenis', 'Setor')
+            ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->sum('jumlah');
+        $menarik = Transaction::where('account_id', $customer->account->id)
+            ->where('jenis', 'Tarik')
+            ->whereMonth('created_at', now()->month)
+            ->whereYear('created_at', now()->year)
+            ->sum('jumlah');
+        return view('pages/nasabah/detail', compact('customer', 'transactions', 'menabung', 'menarik'));
     }
 
     public function bukaRekening($id)

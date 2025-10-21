@@ -208,13 +208,13 @@
                                 <div>
                                     <div class="flex justify-between text-sm mb-2">
                                         <div class="text-gray-300">Total Menabung Bulan Ini</div>
-                                        <div class="text-gray-400 italic">Rp. 0</div>
+                                        <div class="text-gray-400 italic">Rp. {{ number_format($menabung) }}</div>
                                     </div>
                                 </div>
                                 <div>
                                     <div class="flex justify-between text-sm mb-2">
                                         <div class="text-gray-300">Total Menarik Bulan Ini</div>
-                                        <div class="text-gray-400 italic">Rp. 0</div>
+                                        <div class="text-gray-400 italic">Rp. {{ number_format($menarik) }}</div>
                                     </div>
                                 </div>
                             </div>
@@ -224,7 +224,7 @@
             </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-900 mt-5">
+        <div class="bg-white dark:bg-gray-900 shadow-xs rounded-xl mt-5">
             <!-- Table -->
             <div class="overflow-x-auto">
                 <table class="table-auto w-full dark:text-gray-300" @click.stop="$dispatch('set-transactionopen', true)">
@@ -247,10 +247,10 @@
                         <!-- Row -->
                         @foreach($transactions as $transaction)
                             @php                    
-                                if (substr($transaction->jumlah, 0, 1) === '+') :
+                                if ($transaction->jenis === 'Setor') :
                                     $amount_color = 'text-green-500';
                                 else :
-                                    $amount_color = 'text-gray-800 dark:text-gray-300';
+                                    $amount_color = 'text-red-500';
                                 endif;
                             @endphp                     
                             <tr>
@@ -261,7 +261,7 @@
                                     <div class="text-left">{{ $transaction->jenis }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                                    <div class="text-right font-medium {{$amount_color}}">{{ $transaction->jumlah }}</div>
+                                    <div class="text-right {{$amount_color}}">Rp. {{ number_format($transaction->jumlah) }}</div>
                                 </td>
                             </tr>
                         @endforeach
@@ -269,6 +269,10 @@
                 </table>
 
             </div>
+        </div>
+        
+        <div class="mt-6">
+            {{ $transactions->links() }}
         </div>
 
         

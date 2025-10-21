@@ -11,4 +11,9 @@ class TransactionController extends Controller
     {
         return view('pages/transaksi/index');
     }
+
+    public function create()
+    {
+        return view('pages/transaksi/create');
+    }
 }
