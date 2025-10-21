@@ -7,15 +7,8 @@ use App\Models\Transaction;
 
 class TransactionController extends Controller
 {
-    public function index01()
+    public function index()
     {
-        $transactions = Transaction::simplePaginate(10);
-        return view('pages/finance/transactions', compact('transactions'));  
+        return view('pages/transaksi/index');
     }
-
-    public function index02()
-    {
-        $transactions = Transaction::simplePaginate(10);
-        return view('pages/finance/transaction-details', compact('transactions'));  
-    }  
 }
