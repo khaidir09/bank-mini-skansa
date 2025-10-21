@@ -11,6 +11,8 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\DataFeedController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\CustomerAuthController;
+use App\Http\Controllers\CustomerDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,7 +27,19 @@ use App\Http\Controllers\TransactionController;
 
 Route::redirect('/', 'login');
 
+Route::prefix('nasabah')->name('nasabah.')->group(function () {
+    Route::get('login', [CustomerAuthController::class, 'showLoginForm'])->name('login');
+    Route::post('login', [CustomerAuthController::class, 'login'])->name('login.post');
+    Route::post('logout', [CustomerAuthController::class, 'logout'])->name('logout');
+
+    Route::middleware('auth.nasabah')->group(function () {
+        Route::get('dashboard', [CustomerDashboardController::class, 'index'])->name('dashboard');
+    });
+});
+
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+
     Route::resource('nasabah', CustomerController::class);
     Route::post('nasabah/{id}/buka-rekening', [CustomerController::class, 'bukaRekening'])->name('buka-rekening');
     Route::post('nasabah/{id}/tutup-rekening', [CustomerController::class, 'tutupRekening'])->name('tutup-rekening');
@@ -35,7 +49,6 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // Route for the getting the data feed
     Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/dashboard/analytics', [DashboardController::class, 'analytics'])->name('analytics');
     Route::get('/dashboard/fintech', [DashboardController::class, 'fintech'])->name('fintech');
     Route::get('/ecommerce/orders', [OrderController::class, 'index'])->name('orders');

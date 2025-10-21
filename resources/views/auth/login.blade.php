@@ -1,5 +1,5 @@
 <x-authentication-layout>
-    <h1 class="text-3xl text-gray-800 dark:text-gray-100 font-bold mb-6">{{ __('Welcome back!') }}</h1>
+    <h1 class="text-3xl text-gray-800 dark:text-gray-100 font-bold mb-6">Login Admin</h1>
     @if (session('status'))
         <div class="mb-4 font-medium text-sm text-green-600">
             {{ session('status') }}
@@ -22,12 +22,12 @@
             @if (Route::has('password.request'))
                 <div class="mr-1">
                     <a class="text-sm underline hover:no-underline" href="{{ route('password.request') }}">
-                        {{ __('Forgot Password?') }}
+                        Lupa password?
                     </a>
                 </div>
             @endif            
             <x-button class="ml-3">
-                {{ __('Sign in') }}
+                Login
             </x-button>            
         </div>
     </form>
