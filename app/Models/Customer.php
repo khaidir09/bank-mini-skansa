@@ -15,6 +15,11 @@ class Customer extends Model
 
     public function account()
     {
-        return $this->hasOne(Customer::class);
+        return $this->hasOne(Account::class, 'customer_id', 'id');
+    }
+
+    public function transactions()
+    {
+        return $this->hasManyThrough(Transaction::class, Account::class, 'customer_id', 'account_id');
     }
 }

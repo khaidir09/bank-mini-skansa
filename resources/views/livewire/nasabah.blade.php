@@ -131,6 +131,9 @@
                             <div class="font-semibold text-left">Status</div>
                         </th>
                         <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                            <div class="font-semibold text-left">Rekening</div>
+                        </th>
+                        <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                             <div class="font-semibold text-left">Aksi</div>
                         </th>
                     </tr>
@@ -172,6 +175,13 @@
                                     <div class="text-sm inline-flex font-medium bg-green-500/20 text-green-700 rounded-full text-center px-2.5 py-1">{{ $customer->status }}</div>
                                 @else
                                     <div class="text-sm inline-flex font-medium bg-red-500/20 text-red-700 rounded-full text-center px-2.5 py-1">{{ $customer->status }}</div>
+                                @endif
+                            </td>
+                            <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                @if ($customer->account)
+                                    <div class="text-left">{{ $customer->account->nomor_rekening }}</div>
+                                @else
+                                    <div class="text-left font-medium text-red-700">Tidak Ada</div>
                                 @endif
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
