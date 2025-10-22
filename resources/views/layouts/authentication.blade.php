@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>Bank Mini Skansa</title>
+        <title>Bank Mini Skansa Artha</title>
 
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,11 +41,11 @@
 
                         <!-- Header -->
                         <div class="flex-1">
-                            <div class="flex items-center justify-between px-4 sm:px-6 lg:px-8 py-5">
+                            <div class="flex items-center px-4 sm:px-6 lg:px-8 py-5">
                                 <!-- Logo -->
-                                <a class="block" href="{{ route('dashboard') }}">
-                                    <img src="{{ asset('images/logo.png') }}" alt="Logo SMK Negeri 1 Amuntai" class="h-20">
-                                </a>
+                                <img src="{{ asset('images/logo.png') }}" alt="Logo SMK Negeri 1 Amuntai" class="h-20">
+                                <img src="{{ asset('images/akuntansi.png') }}" alt="Logo SMK Negeri 1 Amuntai" class="h-20 ml-3">
+                                <img src="{{ asset('images/skansa-artha.png') }}" alt="Logo SMK Negeri 1 Amuntai" class="h-20 ml-3">
                             </div>
                         </div>
 
@@ -59,7 +59,7 @@
 
                 <!-- Image -->
                 <div class="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
-                    <img class="object-cover object-center w-full h-full" src="{{ asset('images/auth-image.jpg') }}" width="760" height="1024" alt="Authentication image" />
+                    <img class="object-cover object-center w-full h-full" src="{{ asset('images/bank-mini.jpg') }}" width="760" height="1024" alt="Authentication image" />
                 </div>
 
             </div>

@@ -179,7 +179,7 @@
                                 <div>{{ $transaction->jenis }}</div>
                             </td>
                             <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                                <div class="font-medium {{ $amount_color }}">Rp. {{ number_format($transaction->jumlah) }}</div>
+                                <div class="font-medium text-end {{ $amount_color }}">Rp. {{ number_format($transaction->jumlah) }}</div>
                             </td>
                         </tr>
                     @endforeach

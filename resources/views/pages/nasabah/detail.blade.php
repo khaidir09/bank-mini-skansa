@@ -224,12 +224,18 @@
             </div>
         </div>
 
-        <div class="bg-white dark:bg-gray-900 shadow-xs rounded-xl mt-5">
+        <div class="bg-white dark:bg-gray-800 shadow-xs rounded-xl mt-6">
+            <header class="px-5 py-4">
+                <h2 class="font-semibold text-gray-800 dark:text-gray-100">Semua Transaksi <span
+                        class="text-gray-400 dark:text-gray-500 font-medium">{{ $transactions_count }}</span></h2>
+            </header>
+
             <!-- Table -->
             <div class="overflow-x-auto">
-                <table class="table-auto w-full dark:text-gray-300" @click.stop="$dispatch('set-transactionopen', true)">
+                <table class="table-auto w-full dark:text-gray-300">
                     <!-- Table header -->
-                    <thead class="text-xs font-semibold uppercase text-gray-500 border-t border-b border-gray-200 dark:border-gray-700/60">
+                    <thead
+                        class="text-xs font-semibold uppercase text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-900/20 border-t border-b border-gray-100 dark:border-gray-700/60">
                         <tr>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
                                 <div class="font-semibold text-left">Tanggal</div>
@@ -238,30 +244,29 @@
                                 <div class="font-semibold text-left">Jenis</div>
                             </th>
                             <th class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                <div class="font-semibold text-right">Jumlah</div>
+                                <div class="font-semibold text-left">Jumlah</div>
                             </th>
                         </tr>
                     </thead>
                     <!-- Table body -->
-                    <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-700/60 border-b border-gray-200 dark:border-gray-700/60">
-                        <!-- Row -->
-                        @foreach($transactions as $transaction)
-                            @php                    
-                                if ($transaction->jenis === 'Setor') :
-                                    $amount_color = 'text-green-500';
-                                else :
-                                    $amount_color = 'text-red-500';
-                                endif;
-                            @endphp                     
+                    <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-700/60">
+                        @foreach ($transactions as $transaction)
+                        @php
+                            if ($transaction->jenis === 'Setor') {
+                                $amount_color = 'text-green-500';
+                            } else {
+                                $amount_color = 'text-red-500';
+                            }
+                        @endphp
                             <tr>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="text-left">{{ \Carbon\Carbon::parse($transaction->date)->format('d/m/Y') }}</div>
+                                    <div class="font-medium">{{ \Carbon\Carbon::parse($transaction->date)->format('d/m/Y') }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="text-left">{{ $transaction->jenis }}</div>
+                                    <div>{{ $transaction->jenis }}</div>
                                 </td>
                                 <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                                    <div class="text-right {{$amount_color}}">Rp. {{ number_format($transaction->jumlah) }}</div>
+                                    <div class="font-medium text-end {{ $amount_color }}">Rp. {{ number_format($transaction->jumlah) }}</div>
                                 </td>
                             </tr>
                         @endforeach

@@ -19,6 +19,12 @@ class TransaksiCreate extends Component
     public $date;
     public $jumlah;
 
+    public function mount()
+    {
+        // today()->toDateString() akan menghasilkan format 'Y-m-d' (misal: '2025-10-21')
+        $this->date = today()->toDateString();
+    }
+
     public function updatedSearch()
     {
         if (strlen($this->search) >= 2) {
@@ -96,7 +102,7 @@ class TransaksiCreate extends Component
         $this->selectedCustomer = null;
         $this->selectedAccount = null;
         $this->saldo = 0;
-        $this->date = null;
+        $this->date = today()->toDateString();
         $this->jenis = 'Setor';
         $this->jumlah = null;
     }

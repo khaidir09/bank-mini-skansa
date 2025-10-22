@@ -54,12 +54,6 @@
             <!-- Table (Top Channels) -->
             <x-dashboard.dashboard-card-07 />
 
-            <!-- Line chart (Sales Over Time)  -->
-            <x-dashboard.dashboard-card-08 />
-
-            <!-- Stacked bar chart (Sales VS Refunds) -->
-            <x-dashboard.dashboard-card-09 />
-
             <!-- Card (Recent Activity) -->
             <x-dashboard.dashboard-card-10 />
             

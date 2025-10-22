@@ -1,5 +1,5 @@
 <x-authentication-layout>
-    <h1 class="text-3xl text-gray-800 dark:text-gray-100 font-bold mb-6">Selamat Datang di Bank Mini SMK Negeri 1 Amuntai</h1>
+    <h1 class="text-2xl text-gray-800 dark:text-gray-100 font-bold mb-6">Selamat Datang di Bank Mini Skansa Artha SMK Negeri 1 Amuntai</h1>
     <p class="mb-6">Silakan Login untuk Cek Saldo & Riwayat Transaksi Anda</p>
     <!-- Form -->
     <form method="POST" action="{{ route('nasabah.login.post') }}">

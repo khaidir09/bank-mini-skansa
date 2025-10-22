@@ -25,7 +25,7 @@ use App\Http\Controllers\CustomerDashboardController;
 |
 */
 
-Route::redirect('/', 'login');
+Route::redirect('/', 'nasabah/login');
 
 Route::prefix('nasabah')->name('nasabah.')->group(function () {
     Route::get('login', [CustomerAuthController::class, 'showLoginForm'])->name('login');

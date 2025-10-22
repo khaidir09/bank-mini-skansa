@@ -30,7 +30,8 @@ class CustomerController extends Controller
             ->whereMonth('created_at', now()->month)
             ->whereYear('created_at', now()->year)
             ->sum('jumlah');
-        return view('pages/nasabah/detail', compact('customer', 'transactions', 'menabung', 'menarik'));
+        $transactions_count = Transaction::where('account_id', $customer->account->id)->count();
+        return view('pages/nasabah/detail', compact('customer', 'transactions', 'transactions_count', 'menabung', 'menarik'));
     }
 
     public function bukaRekening($id)
