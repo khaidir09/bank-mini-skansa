@@ -11,12 +11,12 @@
             <!-- Right: Actions -->
             <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
-                <button class="btn bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700/60 hover:border-gray-300 dark:hover:border-gray-600 text-gray-800 dark:text-gray-300">
+                <a href="{{ route('nasabah.edit', $customer->id) }}" class="btn bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700/60 hover:border-gray-300 dark:hover:border-gray-600 text-gray-800 dark:text-gray-300">
                     <svg class="fill-current shrink-0 xs:hidden" width="16" height="16" viewBox="0 0 16 16">
                         <path d="M15 7H9V1c0-.6-.4-1-1-1S7 .4 7 1v6H1c-.6 0-1 .4-1 1s.4 1 1 1h6v6c0 .6.4 1 1 1s1-.4 1-1V9h6c.6 0 1-.4 1-1s-.4-1-1-1z"/>
                     </svg>
                     <span class="max-xs:sr-only">Edit Profil</span>
-                </button>
+                </a>
                 <!-- Add account button -->
                 @if ($customer->account && $customer->account->status === 'Aktif')
                     <form action="{{ route('tutup-rekening', $customer->id) }}" method="POST">
@@ -250,35 +250,51 @@
                     </thead>
                     <!-- Table body -->
                     <tbody class="text-sm divide-y divide-gray-100 dark:divide-gray-700/60">
-                        @foreach ($transactions as $transaction)
-                        @php
-                            if ($transaction->jenis === 'Setor') {
-                                $amount_color = 'text-green-500';
-                            } else {
-                                $amount_color = 'text-red-500';
-                            }
-                        @endphp
+                        @if ($transactions && $transactions->count() > 0)
+
+                            @foreach ($transactions as $transaction)
+                                @php
+                                    if ($transaction->jenis === 'Setor') {
+                                        $amount_color = 'text-green-500';
+                                    } else {
+                                        $amount_color = 'text-red-500';
+                                    }
+                                @endphp
+                                <tr>
+                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                        <div class="font-medium">{{ \Carbon\Carbon::parse($transaction->date)->format('d/m/Y') }}</div>
+                                    </td>
+                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
+                                        <div>{{ $transaction->jenis }}</div>
+                                    </td>
+                                    <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
+                                        <div class="font-medium text-end {{ $amount_color }}">Rp. {{ number_format($transaction->jumlah) }}</div>
+                                    </td>
+                                </tr>
+                            @endforeach
+
+                        @else
                             <tr>
-                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div class="font-medium">{{ \Carbon\Carbon::parse($transaction->date)->format('d/m/Y') }}</div>
-                                </td>
-                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap">
-                                    <div>{{ $transaction->jenis }}</div>
-                                </td>
-                                <td class="px-2 first:pl-5 last:pr-5 py-3 whitespace-nowrap w-px">
-                                    <div class="font-medium text-end {{ $amount_color }}">Rp. {{ number_format($transaction->jumlah) }}</div>
+                                <td colspan="3" class="px-2 first:pl-5 last:pr-5 py-4 whitespace-nowrap text-center text-gray-500">
+                                    @if ($customer->account)
+                                        Belum ada riwayat transaksi.
+                                    @else
+                                        Nasabah belum memiliki rekening.
+                                    @endif
                                 </td>
                             </tr>
-                        @endforeach
+                        @endif
                     </tbody>
                 </table>
 
             </div>
         </div>
         
-        <div class="mt-6">
-            {{ $transactions->links() }}
-        </div>
+        @if ($transactions && $transactions->count() > 0)
+            <div class="mt-6">
+                {{ $transactions->links() }}
+            </div>
+        @endif
 
         
     </div>

@@ -2,12 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\CustomerExport;
+use App\Imports\CustomerImport;
+use App\Imports\RekeningImport;
 use App\Models\Account;
 use App\Models\Customer;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -16,21 +20,50 @@ class CustomerController extends Controller
         return view('pages/nasabah/index');
     }
 
+    public function edit($id)
+    {
+        $customer = Customer::findOrFail($id);
+        return view('pages/nasabah/edit', compact('customer'));
+    }
+
     public function show($id)
     {
-        $customer = Customer::with('account', 'transactions')->findOrFail($id);
-        $transactions = Transaction::where('account_id', $customer->account->id)->paginate(2);
-        $menabung = Transaction::where('account_id', $customer->account->id)
-            ->where('jenis', 'Setor')
-            ->whereMonth('created_at', now()->month)
-            ->whereYear('created_at', now()->year)
-            ->sum('jumlah');
-        $menarik = Transaction::where('account_id', $customer->account->id)
-            ->where('jenis', 'Tarik')
-            ->whereMonth('created_at', now()->month)
-            ->whereYear('created_at', now()->year)
-            ->sum('jumlah');
-        $transactions_count = Transaction::where('account_id', $customer->account->id)->count();
+        // 1. Ambil data nasabah, cukup relasi 'account' saja
+        $customer = Customer::with('account')->findOrFail($id);
+
+        // 2. Siapkan variabel dengan nilai default
+        $transactions = null; // Akan kita isi dengan Paginator jika ada
+        $transactions_count = 0;
+        $menabung = 0;
+        $menarik = 0;
+
+        // 3. JALANKAN SEMUA QUERY TRANSAKSI HANYA JIKA NASABAH PUNYA REKENING
+        if ($customer->account) {
+            $accountId = $customer->account->id;
+
+            // Ambil data transaksi (misal 10 per halaman, diurutkan terbaru)
+            // Kamu bisa ganti paginate(2) jika ingin
+            $transactions = Transaction::where('account_id', $accountId)
+                ->latest() // Menambahkan urutan terbaru
+                ->paginate(10); // Mengubah dari 2 ke 10 (lebih umum)
+
+            // Ambil total transaksi DARI PAGINATOR (lebih efisien)
+            $transactions_count = $transactions->total();
+
+            // Query untuk total tabungan bulan ini
+            $menabung = Transaction::where('account_id', $accountId)
+                ->where('jenis', 'Setor')
+                ->whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year)
+                ->sum('jumlah');
+
+            // Query untuk total penarikan bulan ini
+            $menarik = Transaction::where('account_id', $accountId)
+                ->where('jenis', 'Tarik')
+                ->whereMonth('created_at', now()->month)
+                ->whereYear('created_at', now()->year)
+                ->sum('jumlah');
+        }
         return view('pages/nasabah/detail', compact('customer', 'transactions', 'transactions_count', 'menabung', 'menarik'));
     }
 
@@ -167,5 +200,28 @@ class CustomerController extends Controller
         $customer->account->update(['status' => 'Ditutup']);
 
         return redirect()->back()->with('message', 'Rekening berhasil ditutup!');
+    }
+
+    public function importNasabah(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('PelangganData', $namafile);
+        Excel::import(new CustomerImport, \public_path('/PelangganData/' . $namafile));
+        return redirect()->route('nasabah.index')->with('message', 'Nasabah berhasil diimpor!');
+    }
+
+    public function exportNasabah()
+    {
+        return Excel::download(new CustomerExport, 'data-nasabah.xlsx');
+    }
+
+    public function importRekening(Request $request)
+    {
+        $data = $request->file('file');
+        $namafile = $data->getClientOriginalName();
+        $data->move('PelangganData', $namafile);
+        Excel::import(new RekeningImport, \public_path('/PelangganData/' . $namafile));
+        return redirect()->route('nasabah.index')->with('message', 'Rekening berhasil diimpor!');
     }
 }

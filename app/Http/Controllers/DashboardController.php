@@ -2,16 +2,23 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Account;
+use App\Models\Customer;
 use App\Models\DataFeed;
+use App\Models\Transaction;
+use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
         $dataFeed = new DataFeed();
-
-        return view('pages/dashboard/dashboard', compact('dataFeed'));
+        $totalNasabah = Customer::count();
+        $totalSaldo = Account::sum('saldo');
+        $jumlahTransaksiHariIni = Transaction::whereDate('date', now()->toDateString())->count();
+        $setoranHariIni = Transaction::where('jenis', 'Setor')->whereDate('date', now()->toDateString())->sum('jumlah');
+        $tarikanHariIni = Transaction::where('jenis', 'Tarik')->whereDate('date', now()->toDateString())->sum('jumlah');
+        return view('pages/dashboard/dashboard', compact('dataFeed', 'totalNasabah', 'totalSaldo', 'jumlahTransaksiHariIni', 'setoranHariIni', 'tarikanHariIni'));
     }
 
     /**

@@ -34,32 +34,99 @@
         <div class="grid grid-cols-12 gap-6">
 
             <!-- Line chart (Acme Plus) -->
-            <x-dashboard.dashboard-card-01 :dataFeed="$dataFeed" />
+            <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-gray-800 shadow-xs rounded-xl">
+                <div class="px-5 py-5">
+                    <header class="flex justify-between items-start mb-2">
+                        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Total Saldo Seluruh Nasabah</h2>
+                        <!-- Menu button -->
+                        <div class="relative inline-flex">
+                            <a class="text-sm font-medium text-violet-500 hover:text-violet-600 dark:hover:text-violet-400" href="{{ route('nasabah.index') }}">-&gt;</a>
+                        </div>
+                    </header>
+                    <div class="flex items-start">
+                        <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">{{ number_format($totalSaldo) }}</div>
+                    </div>
+                    <div class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase mb-1">Rupiah</div>
+                </div>
+            </div>
 
-            <!-- Line chart (Acme Advanced) -->
-            <x-dashboard.dashboard-card-02 :dataFeed="$dataFeed" />
+            <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-gray-800 shadow-xs rounded-xl">
+                <div class="px-5 py-5">
+                    <header class="flex justify-between items-start mb-2">
+                        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Jumlah Nasabah Aktif</h2>
+                        <!-- Menu button -->
+                        <div class="relative inline-flex">
+                            <a class="text-sm font-medium text-violet-500 hover:text-violet-600 dark:hover:text-violet-400" href="{{ route('nasabah.index') }}">-&gt;</a>
+                        </div>
+                    </header>
+                    <div class="flex items-start">
+                        <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">{{ $totalNasabah }}</div>
+                    </div>
+                    <div class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase mb-1">Orang</div>
+                </div>
+            </div>
+            <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-gray-800 shadow-xs rounded-xl">
+                <div class="px-5 py-5">
+                    <header class="flex justify-between items-start mb-2">
+                        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Transaksi Hari Ini</h2>
+                        <!-- Menu button -->
+                        <div class="relative inline-flex">
+                            <a class="text-sm font-medium text-violet-500 hover:text-violet-600 dark:hover:text-violet-400" href="{{ route('transaksi.index') }}">-&gt;</a>
+                        </div>
+                    </header>
+                    <div class="flex items-start">
+                        <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">{{ $jumlahTransaksiHariIni }}</div>
+                    </div>
+                    <div class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase mb-1">Transaksi</div>
+                </div>
+            </div>
 
-            <!-- Line chart (Acme Professional) -->
-            <x-dashboard.dashboard-card-03 :dataFeed="$dataFeed" />
+            <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-gray-800 shadow-xs rounded-xl">
+                <div class="px-5 py-5">
+                    <header class="flex justify-between items-start mb-2">
+                        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Total Setoran Hari Ini</h2>
+                        <!-- Menu button -->
+                        <div class="relative inline-flex">
+                            <a class="text-sm font-medium text-violet-500 hover:text-violet-600 dark:hover:text-violet-400" href="{{ route('transaksi.index') }}">-&gt;</a>
+                        </div>
+                    </header>
+                    <div class="flex items-start">
+                        <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">{{ number_format($setoranHariIni) }}</div>
+                    </div>
+                    <div class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase mb-1">Rupiah</div>
+                </div>
+            </div>
 
+            <div class="flex flex-col col-span-full sm:col-span-6 xl:col-span-4 bg-white dark:bg-gray-800 shadow-xs rounded-xl">
+                <div class="px-5 py-5">
+                    <header class="flex justify-between items-start mb-2">
+                        <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-100">Total Tarikan Hari Ini</h2>
+                        <!-- Menu button -->
+                        <div class="relative inline-flex">
+                            <a class="text-sm font-medium text-violet-500 hover:text-violet-600 dark:hover:text-violet-400" href="{{ route('transaksi.index') }}">-&gt;</a>
+                        </div>
+                    </header>
+                    <div class="flex items-start">
+                        <div class="text-3xl font-bold text-gray-800 dark:text-gray-100 mr-2">{{ number_format($tarikanHariIni) }}</div>
+                    </div>
+                    <div class="text-xs font-semibold text-gray-400 dark:text-gray-500 uppercase mb-1">Rupiah</div>
+                </div>
+            </div>
+
+
+            
+
+        </div>
+
+        <div class="grid grid-cols-12 gap-6 mt-6">
             <!-- Bar chart (Direct vs Indirect) -->
-            <x-dashboard.dashboard-card-04 />
-
-            <!-- Line chart (Real Time Value) -->
-            <x-dashboard.dashboard-card-05 />
+            <x-dashboard.statistik-transaksi-mingguan />
 
             <!-- Doughnut chart (Top Countries) -->
-            <x-dashboard.dashboard-card-06 />
+            <x-dashboard.statistik-jurusan  />
 
             <!-- Table (Top Channels) -->
-            <x-dashboard.dashboard-card-07 />
-
-            <!-- Card (Recent Activity) -->
-            <x-dashboard.dashboard-card-10 />
-            
-            <!-- Card (Income/Expenses) -->
-            <x-dashboard.dashboard-card-11 />
-
+            <x-dashboard.statistik-kelas-terbanyak />
         </div>
 
     </div>

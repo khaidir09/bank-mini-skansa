@@ -12,7 +12,9 @@ use App\Http\Controllers\DataFeedController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\CustomerAuthController;
+use App\Http\Controllers\CustomerProfileController;
 use App\Http\Controllers\CustomerDashboardController;
+use App\Http\Controllers\LaporanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +36,8 @@ Route::prefix('nasabah')->name('nasabah.')->group(function () {
 
     Route::middleware('auth.nasabah')->group(function () {
         Route::get('dashboard', [CustomerDashboardController::class, 'index'])->name('dashboard');
+        Route::get('profile', [CustomerProfileController::class, 'edit'])->name('profile.edit');
+        Route::put('profile', [CustomerProfileController::class, 'update'])->name('profile.update');
     });
 });
 
@@ -43,7 +47,14 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::resource('nasabah', CustomerController::class);
     Route::post('nasabah/{id}/buka-rekening', [CustomerController::class, 'bukaRekening'])->name('buka-rekening');
     Route::post('nasabah/{id}/tutup-rekening', [CustomerController::class, 'tutupRekening'])->name('tutup-rekening');
+
+    Route::post('/impor-rekening', [CustomerController::class, 'importRekening'])->name('impor-rekening');
+
+    Route::post('/impor-nasabah', [CustomerController::class, 'importNasabah'])->name('impor-nasabah');
+    Route::get('export-nasabah', [CustomerController::class, 'exportNasabah'])->name('nasabah-export');
     Route::resource('transaksi', TransactionController::class);
+
+    Route::get('/laporan/kelas', [LaporanController::class, 'index'])->name('laporan-kelas');
 
 
     // Route for the getting the data feed
